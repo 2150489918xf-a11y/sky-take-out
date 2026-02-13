@@ -53,4 +53,7 @@ public class Dish implements Serializable {
 
     private Long updateUser;
 
+    public Long getId(Long id) {
+        return id;
+    }
 }
