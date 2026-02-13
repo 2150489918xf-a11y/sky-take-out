@@ -15,6 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -102,4 +103,42 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    /*
+     *启用禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号接口")
+    public Result startOrStop(@PathVariable Integer status, Long id){ //注意@PathVariable注解,表示从路径中获取参数
+        log.info("启用禁用员工账号：{},{}", status, id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+    /*
+     *根据id查询员工信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工信息接口")
+    public Result<Employee> getById(@PathVariable Long id){  //注意@PathVariable注解,表示从路径中获取参数
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /*
+     *修改员工信息
+     * @param employee
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("修改员工信息接口")
+    public Result update(@RequestBody EmployeeDTO employeeDTO) { //注意@RequestBody注解,表示将前端提交的json数据转换为EmployeeDTO对象
+        log.info("修改员工信息：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
 }
