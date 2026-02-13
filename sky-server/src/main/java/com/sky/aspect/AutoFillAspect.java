@@ -6,7 +6,6 @@ import com.sky.context.BaseContext;
 import com.sky.enumeration.OperationType;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -65,13 +64,13 @@ public class AutoFillAspect {
             //为四个公共字段赋值：createTime、createUser、updateTime、updateUser
             try {
                 Method setCreateTime  = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
-                Method setCreatetUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
+                Method setCreateUser  = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
                 Method setUpdateTime  = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
                 Method setUpdateUser  = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
 
                 //通过反射给实体对象的属性赋值
                 setCreateTime.invoke(entity, now);
-                setCreatetUser.invoke(entity, currentId);
+                setCreateUser.invoke(entity, currentId);
                 setUpdateTime.invoke(entity, now);
                 setUpdateUser.invoke(entity, currentId);
             }catch (Exception e){
