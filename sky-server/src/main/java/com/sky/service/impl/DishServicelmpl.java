@@ -165,7 +165,18 @@ public class DishServicelmpl implements DishService {
         }
     }
 
-
+    /**
+    * 根据分类id查询菜品列表
+    * @param categoryID
+    * @return
+    */
+    public List<Dish> list(Long categoryID) {
+        Dish dish = Dish.builder()             //使用构建者模式创建Dish对象
+                .categoryId(categoryID)        //根据分类id查询
+                .status(StatusConstant.ENABLE) //只查询起售状态的菜品
+                .build();
+        return dishMapper.list(dish);
+    }
 
 
 

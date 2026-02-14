@@ -2,6 +2,7 @@ package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -35,18 +36,18 @@ import java.util.List;
             return Result.success();
         }
 
-    /**
-     * 菜品分页查询
-     * @param dishPageQueryDTO
-     * @return
-     */
+        /**
+         * 菜品分页查询
+         * @param dishPageQueryDTO
+         * @return
+         */
     @GetMapping("/page")
-        @ApiOperation("菜品分页查询")
-        public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){
-            log.info("菜品分页查询，dishPageQueryDTO：{}", dishPageQueryDTO);
-            PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
-            return Result.success(pageResult);
-        }
+    @ApiOperation("菜品分页查询")
+    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){
+        log.info("菜品分页查询，dishPageQueryDTO：{}", dishPageQueryDTO);
+        PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
+        return Result.success(pageResult);
+    }
 
 
     /**
@@ -55,29 +56,51 @@ import java.util.List;
      * @return
      */
     @DeleteMapping
-        @ApiOperation("删除菜品")
-        public Result delete(@RequestParam List<Long> ids){  //注意这里用的是@RequestParam,不是@PathVariable
-            log.info("删除菜品，ids：{}", ids);
-            dishService.deleteBatch(ids);
-            return Result.success();
-        }
+    @ApiOperation("删除菜品")
+    public Result delete(@RequestParam List<Long> ids){  //注意这里用的是@RequestParam,不是@PathVariable
+        log.info("删除菜品，ids：{}", ids);
+        dishService.deleteBatch(ids);
+        return Result.success();
+    }
 
-        @GetMapping("/{id}")
-        @ApiOperation("根据id查询菜品信息和对应的口味信息")
-        public Result<DishVO> getById(@PathVariable Long id){
-            log.info("根据id查询菜品信息和对应的口味信息",id);
-            DishVO dishVO = dishService.getByIdWithFlavor(id);
-            return Result.success(dishVO);
-        }
+    /**
+     * 根据id查询菜品信息和对应的口味信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询菜品信息和对应的口味信息")
+    public Result<DishVO> getById(@PathVariable Long id){
+        log.info("根据id查询菜品信息和对应的口味信息",id);
+        DishVO dishVO = dishService.getByIdWithFlavor(id);
+        return Result.success(dishVO);
+    }
 
-        @PutMapping
-        @ApiOperation("修改菜品")
-        public Result update(@RequestBody DishDTO dishDTO){  //@RequestBody可以将前端传递的json数据转换为对应的java对象
-            log.info("修改菜品，dishDTO：{}", dishDTO);
-            dishService.updatWithFlavor(dishDTO);
-            return Result.success();
-        }
+    /**
+     * 修改菜品信息和对应的口味信息
+     * @param dishDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("修改菜品")
+    public Result update(@RequestBody DishDTO dishDTO){  //@RequestBody可以将前端传递的json数据转换为对应的java对象
+        log.info("修改菜品，dishDTO：{}", dishDTO);
+        dishService.updatWithFlavor(dishDTO);
+        return Result.success();
+    }
 
+    /**
+     *
+     * @param categoryID
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<Dish>>list(Long categoryID){
+            log.info("根据分类id查询菜品，categoryId：{}", categoryID);
+            List<Dish>list = dishService.list(categoryID);
+            return Result.success(list);
+        }
 
 
 
