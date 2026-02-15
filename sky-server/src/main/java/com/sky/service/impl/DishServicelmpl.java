@@ -153,13 +153,13 @@ public class DishServicelmpl implements DishService {
 
 
         //删除所有的口味数据
-        dishFlavorMapper.deleteByDishId(dish.getId(dishDTO.getId()));
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
 
         //插入新的口味数据
         List<DishFlavor>flavors= dishDTO.getFlavors();
         if (flavors!=null && flavors.size()>0) {
             flavors.forEach(flavor -> {
-                flavor.setDishId(dish.getId(dishDTO.getId()));
+                flavor.setDishId(dishDTO.getId());
             });
             //批量插入
             dishFlavorMapper.insertBatch(flavors);
@@ -202,6 +202,19 @@ public class DishServicelmpl implements DishService {
         }
 
         return dishVOList;
+    }
+
+    /**
+     * 启用、禁用菜品
+     * @param status
+     * @param id
+     */
+    public void startOrStop(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
     }
 
 
