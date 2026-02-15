@@ -20,6 +20,7 @@
         </where>
         order by s.create_time desc
     </select>
+
     <update id="update" parameterType="Setmeal">
         update setmeal
         <set>
@@ -34,4 +35,16 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="getByIdWithDish" resultType="com.sky.vo.SetmealVO">
+        select s.*, c.name as categoryName, d.id as dishId, d.name as dishName, d.image as dishImage, d.description as dishDescription, d.price as dishPrice
+        from setmeal s
+        left outer join category c
+        on s.category_id = c.id
+        left outer join setmeal_dish sd
+        on s.id = sd.setmeal_id
+        left outer join dish d
+        on sd.dish_id = d.id
+        where s.id = #{id}
+    </select>
 </mapper>
