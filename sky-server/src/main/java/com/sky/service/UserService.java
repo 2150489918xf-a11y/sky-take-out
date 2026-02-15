@@ -10,4 +10,10 @@ public interface UserService {
      * @return
      */
     User wxLogin(UserLoginDTO userLoginDTO);
+
+    /**
+     * 更新用户信息（头像、昵称）
+     * @param user
+     */
+    void updateUserInfo(User user);
 }

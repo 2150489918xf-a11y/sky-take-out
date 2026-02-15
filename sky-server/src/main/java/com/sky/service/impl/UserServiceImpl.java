@@ -10,6 +10,7 @@ import com.sky.mapper.UserMapper;
 import com.sky.properties.WeChatProperties;
 import com.sky.service.UserService;
 import com.sky.utils.HttpClientUtil;
+import com.sky.context.BaseContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,16 @@ public class UserServiceImpl implements UserService {
         }
         // 5. 返回用户信息
         return user;
+    }
+
+    /**
+     * 更新用户信息（头像、昵称）
+     * @param user
+     */
+    @Override
+    public void updateUserInfo(User user) {
+        user.setId(BaseContext.getCurrentId());
+        userMapper.update(user);
     }
 
     /**
