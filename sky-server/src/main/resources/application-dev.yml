@@ -8,13 +8,13 @@ sky:
     password: 123456
   alioss:
     endpoint: oss-cn-hangzhou.aliyuncs.com
-    access-key-id: LTAI5tDnQnatwJWST5dkLY3d
-    access-key-secret: mwsMqpYEtR5SpvW5RyOKPqM1G0zxQC
-    bucket-name: sky-take-out-xf1
+    access-key-id: 你的阿里云AccessKeyId
+    access-key-secret: 你的阿里云AccessKeySecret
+    bucket-name: 你的Bucket名称
   redis:
     host: localhost
     port: 6379
     database: 10
   wechat:
-    appid: wx99c4a6db8370756c
-    secret: a1c96cad9621055c7193bb31cc9593cb
+    appid: 你的微信小程序appid
+    secret: 你的微信小程序secret
