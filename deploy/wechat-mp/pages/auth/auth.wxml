@@ -1,0 +1,26 @@
+<view class="auth-container">
+  <view class="auth-header">
+    <text class="auth-title">完善个人信息</text>
+    <text class="auth-desc">请授权头像和昵称以获得更好的体验</text>
+  </view>
+
+  <view class="auth-form">
+    <view class="auth-avatar-row">
+      <text class="auth-label">头像</text>
+      <button class="auth-avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="auth-avatar-img" src="{{avatarUrl}}"></image>
+        <text class="auth-avatar-tip">点击选择</text>
+      </button>
+    </view>
+
+    <view class="auth-nickname-row">
+      <text class="auth-label">昵称</text>
+      <input type="nickname" class="auth-nickname-input" value="{{nickName}}" placeholder="请输入昵称" bindinput="onNicknameInput" bindblur="onNicknameBlur" />
+    </view>
+  </view>
+
+  <button class="auth-confirm-btn" bindtap="onConfirm">确认登录</button>
+  <view class="auth-skip" bindtap="onSkip">
+    <text class="auth-skip-text">跳过</text>
+  </view>
+</view>
